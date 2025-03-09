@@ -5,6 +5,17 @@ import Dashboard from "@/components/Dashboard";
 import NavBar from "@/components/NavBar";
 import { AnimatePresence } from "framer-motion";
 
+// Remove mock data import
+// import { mockAssessments } from "@/lib/mockData";
+
+// Add areas constant
+const areas = [
+  { id: 'tech', name: 'Technology & Scientific Knowledge', color: '#0ea5e9' },
+  { id: 'personal', name: 'Personal Growth', color: '#22c55e' },
+  { id: 'business', name: 'Business & Finance', color: '#f59e0b' },
+  { id: 'social', name: 'Intimate & Social Relationships', color: '#ec4899' }
+];
+
 const Index: React.FC = () => {
   return (
     <AssessmentProvider>

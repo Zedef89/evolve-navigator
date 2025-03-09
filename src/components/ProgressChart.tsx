@@ -10,8 +10,20 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { Assessment, areas, AreaType } from "@/lib/mockData";
-import { format } from "date-fns";
+import { AreaType, areas } from "@/lib/constants"; // Added areas import
+import { format, parseISO } from "date-fns";
+
+interface ChartDataPoint {
+  date: string;
+  [key: string]: string | number; // Allow dynamic area IDs as properties
+}
+
+interface Assessment {
+  id: string;
+  date: string;
+  scores: Record<string, number>;
+  notes: Record<string, string>;
+}
 
 interface ProgressChartProps {
   assessments: Assessment[];
@@ -33,12 +45,13 @@ const ProgressChart: React.FC<ProgressChartProps> = ({
   }
 
   // Prepare the data for the chart
+  // Updated type for chart data
   const chartData = assessments
     .slice(0, 8)
     .reverse()
     .map((assessment) => {
-      const data: any = {
-        date: format(assessment.date, "MMM d"),
+      const data: ChartDataPoint = {
+        date: format(parseISO(assessment.date), "MMM d"),  // Parse the ISO string date
       };
 
       if (areaId) {

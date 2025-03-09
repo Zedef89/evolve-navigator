@@ -5,10 +5,11 @@ import { motion } from "framer-motion";
 import { AssessmentProvider, useAssessment } from "@/contexts/AssessmentContext";
 import NavBar from "@/components/NavBar";
 import ProgressChart from "@/components/ProgressChart";
-import { AreaType, areas, getAreaTrend } from "@/lib/mockData";
-import { TrendingUp, TrendingDown, Calendar } from "lucide-react";
+import { AreaType, areas, getAreaTrend } from "@/lib/constants";
+import { TrendingUp, TrendingDown, Calendar, LucideProps } from "lucide-react";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
+import * as LucideIcons from "lucide-react";
 
 const AreaDetailContent: React.FC = () => {
   const { areaId } = useParams<{ areaId: string }>();
@@ -28,9 +29,11 @@ const AreaDetailContent: React.FC = () => {
   const score = latestAssessment ? latestAssessment.scores[typedAreaId] : 0;
   const trend = assessments.length > 1 ? getAreaTrend(assessments, typedAreaId) : null;
 
+  // Update the getIconComponent function
   const getIconComponent = () => {
     const iconName = area.icon;
-    const IconComponent = require("lucide-react")[iconName.charAt(0).toUpperCase() + iconName.slice(1)];
+    const capitalizedIconName = iconName.charAt(0).toUpperCase() + iconName.slice(1);
+    const IconComponent = LucideIcons[capitalizedIconName as keyof typeof LucideIcons] as React.ComponentType<LucideProps>;
     return IconComponent ? <IconComponent className="w-6 h-6" /> : null;
   };
 
@@ -183,3 +186,11 @@ const AreaDetail: React.FC = () => {
 };
 
 export default AreaDetail;
+
+// Remove these lines completely
+// const areas = [
+//   { id: 'tech', name: 'Technology & Scientific Knowledge', color: '#0ea5e9' },
+//   { id: 'personal', name: 'Personal Growth', color: '#22c55e' },
+//   { id: 'business', name: 'Business & Finance', color: '#f59e0b' },
+//   { id: 'social', name: 'Intimate & Social Relationships', color: '#ec4899' }
+// ];

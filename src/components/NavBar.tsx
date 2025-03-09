@@ -5,8 +5,10 @@ import { ChevronLeft, BarChart, LineChart, Plus, CalendarDays, Menu, X, Download
 import { Button } from "@/components/ui/button";
 import { useAssessment } from "@/contexts/AssessmentContext";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAuth } from "@/contexts/AuthContext";
 
 const NavBar = () => {
+  const { logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -42,7 +44,7 @@ const NavBar = () => {
   const showBackButton = !isHomePage;
 
   return (
-    <>
+    <nav>
       <header
         className={`fixed top-0 left-0 right-0 z-40 backdrop-blur-lg transition-all duration-300 
           ${scrolled ? "bg-white/80 shadow-sm" : "bg-transparent"}`}
@@ -182,7 +184,7 @@ const NavBar = () => {
       </AnimatePresence>
 
       <div className="h-16"></div> {/* Spacer for fixed header */}
-    </>
+    </nav>
   );
 };
 
