@@ -1,18 +1,18 @@
 
 import React from "react";
-import { AssessmentProvider } from "@/contexts/AssessmentContext";
-import Dashboard from "@/components/Dashboard";
-import NavBar from "@/components/NavBar";
 import { AnimatePresence } from "framer-motion";
+import { AssessmentProvider } from "@/contexts/AssessmentContext";
+import NavBar from "@/components/NavBar";
+import AssessmentForm from "@/components/AssessmentForm";
 
-const Index: React.FC = () => {
+const Assessment: React.FC = () => {
   return (
     <AssessmentProvider>
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
         <NavBar />
         <main>
           <AnimatePresence mode="wait">
-            <Dashboard />
+            <AssessmentForm />
           </AnimatePresence>
         </main>
       </div>
@@ -20,4 +20,4 @@ const Index: React.FC = () => {
   );
 };
 
-export default Index;
+export default Assessment;
