@@ -60,7 +60,7 @@ const ScoreInput: React.FC<ScoreInputProps> = ({
             left: `calc(${(value / 10) * 100}% - 16px)`,
             border: `2px solid ${areaColor}`,
             top: "50%",
-            marginTop: -16, // Using marginTop instead of y property
+            transform: "translateY(-50%)" // Using transform instead of y or marginTop
           }}
           drag="x"
           dragConstraints={{ left: -16, right: "calc(100% - 16px)" }}

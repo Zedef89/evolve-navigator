@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { AreaType, Area, Assessment, getAreaTrend } from "@/lib/mockData";
-import { TrendingUp, TrendingDown, ChevronRight } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface AreaCardProps {
@@ -23,8 +23,9 @@ const AreaCard: React.FC<AreaCardProps> = ({ area, assessments, onClick }) => {
   };
 
   const getIconComponent = () => {
-    const iconName = area.icon;
-    const IconComponent = require("lucide-react")[iconName.charAt(0).toUpperCase() + iconName.slice(1)];
+    const iconName = area.icon.charAt(0).toUpperCase() + area.icon.slice(1);
+    // Use dynamic access with type assertion to get the icon component
+    const IconComponent = (LucideIcons as any)[iconName];
     return IconComponent ? <IconComponent className="w-5 h-5" /> : null;
   };
 
@@ -55,9 +56,9 @@ const AreaCard: React.FC<AreaCardProps> = ({ area, assessments, onClick }) => {
           {trend && (
             <div className="flex items-center text-sm">
               {trend.increasing ? (
-                <TrendingUp className="text-green-500 w-4 h-4 mr-1" />
+                <LucideIcons.TrendingUp className="text-green-500 w-4 h-4 mr-1" />
               ) : (
-                <TrendingDown className="text-red-500 w-4 h-4 mr-1" />
+                <LucideIcons.TrendingDown className="text-red-500 w-4 h-4 mr-1" />
               )}
               <span className={trend.increasing ? "text-green-500" : "text-red-500"}>
                 {trend.percentage}%
@@ -71,7 +72,7 @@ const AreaCard: React.FC<AreaCardProps> = ({ area, assessments, onClick }) => {
 
         <div className="mt-auto flex justify-between items-center">
           <div className="text-2xl font-semibold">{score ? score : "-"}/10</div>
-          <ChevronRight className="w-5 h-5 text-gray-400" />
+          <LucideIcons.ChevronRight className="w-5 h-5 text-gray-400" />
         </div>
       </div>
     </motion.div>
