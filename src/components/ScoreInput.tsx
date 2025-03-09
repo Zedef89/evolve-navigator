@@ -69,7 +69,10 @@ const ScoreInput: React.FC<ScoreInputProps> = ({
           onDragStart={() => setDragging(true)}
           onDragEnd={(e, info) => {
             setDragging(false);
-            const containerWidth = e.currentTarget.parentElement?.clientWidth || 0;
+            // Fix: Cast to HTMLElement to access parentElement
+            const element = e.currentTarget as HTMLElement;
+            const containerWidth = element.parentElement?.clientWidth || 0;
+            // Fix: Ensure newValue is a number
             const newValue = Math.round(((info.point.x + 16) / containerWidth) * 10);
             handleScoreChange(newValue);
           }}
